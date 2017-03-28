@@ -13,6 +13,8 @@
 
 ;;; Code:
 
+(require 'thingatpt)
+
 ;;;###autoload
 (defun insert-filename (file)
   "Insert a name of FILE allowing for interactive browsing to the name."
@@ -32,6 +34,18 @@ any other value means insert the name without the directory."
       (insert (if name-only
                   (file-name-nondirectory filename)
                 filename)))))
+
+;;;###autoload
+(defun insert-sexp-link ()
+  "Place \"link quotes\" around the `sexp-at-point'."
+  (interactive)
+  (when (sexp-at-point)
+    (let ((bounds (bounds-of-thing-at-point 'sexp)))
+      (save-excursion
+        (setf (point) (car bounds))
+        (insert "`")
+        (setf (point) (1+ (cdr bounds)))
+        (insert "'")))))
 
 (provide 'insert)
 
