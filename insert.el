@@ -63,6 +63,27 @@ any other value means insert the name without the directory."
     (setf (buffer-substring start end)
           (concat "<" tag ">" text "</" tag ">"))))
 
+;;;###autoload
+(defun insert-line-split-keeping-fill-prefix ()
+  "Like `split-line' but trys to keep the `fill-prefix'.
+
+Also adds an extra blank line to the split because it's mostly
+intended for use with editing quoted text."
+  (interactive)
+  (let* ((fill-prefix (fill-context-prefix (save-excursion
+                                             (backward-paragraph)
+                                             (point))
+                                           (save-excursion
+                                             (forward-paragraph)
+                                             (point))))
+         (spaces (- (point)
+                    (line-beginning-position)
+                    (length fill-prefix))))
+    (if (wholenump spaces)
+        (save-excursion
+          (insert (format "\n\n%s%s" fill-prefix (make-string spaces ? ))))
+      (error "Can't split within the fill prefix"))))
+
 (provide 'insert)
 
 ;;; insert.el ends here
