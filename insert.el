@@ -84,6 +84,23 @@ intended for use with editing quoted text."
           (insert (format "\n\n%s%s" fill-prefix (make-string spaces ? ))))
       (error "Can't split within the fill prefix"))))
 
+;;;###autoload
+(defun insert-cut-here (&optional say-cut)
+  "Insert \"cut here\" delimeters."
+  (interactive "P")
+  (let ((cut-line (if say-cut
+                      (concat "-- cut here " (make-string 64 ?-))
+                    (make-string 76 ?-))))
+    (insert (format "%s\n%s\n" cut-line cut-line))
+    (forward-line -1)))
+
+;;;###autoload
+(defun insert-file-cut-here (file)
+  "Insert a file with a \"cut here\" delimiter."
+  (interactive "fFilename: ")
+  (insert-cut-here t)
+  (insert-file-contents-literally file))
+
 (provide 'insert)
 
 ;;; insert.el ends here
