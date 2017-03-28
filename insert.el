@@ -55,6 +55,14 @@ any other value means insert the name without the directory."
   (insert "[SNIP]")
   (forward-char -1))
 
+;;;###autoload
+(defun insert-tags (tag start end)
+  "Surround region bounded by START and END with xml/sgml/html tag TAG."
+  (interactive "sTag: \nr")
+  (let ((text (buffer-substring start end)))
+    (setf (buffer-substring start end)
+          (concat "<" tag ">" text "</" tag ">"))))
+
 (provide 'insert)
 
 ;;; insert.el ends here
