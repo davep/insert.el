@@ -47,6 +47,14 @@ any other value means insert the name without the directory."
         (setf (point) (1+ (cdr bounds)))
         (insert "'")))))
 
+;;;###autoload
+(defun insert-snip (start end)
+  "Call `kill-region' on region bounding START and END and then insert \"[SNIP]\"."
+  (interactive "r")
+  (kill-region start end)
+  (insert "[SNIP]")
+  (forward-char -1))
+
 (provide 'insert)
 
 ;;; insert.el ends here
