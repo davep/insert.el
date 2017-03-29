@@ -101,6 +101,30 @@ intended for use with editing quoted text."
   (insert-cut-here t)
   (insert-file-contents-literally file))
 
+(defconst insert--melpa-badge-types
+  `((markdown .
+              ,(concat
+                "[![MELPA Stable](https://stable.melpa.org/packages/{{p}}-badge.svg)](https://stable.melpa.org/#/{{p}})"
+                "\n"
+                "[![MELPA](https://melpa.org/packages/{{p}}-badge.svg)](https://melpa.org/#/{{p}})"))
+    (html .
+          ,(concat
+            "<a href=\"https://stable.melpa.org/#/{{p}}\"><img alt=\"MELPA Stable\" src=\"https://stable.melpa.org/packages/{{p}}-badge.svg\"/></a>"
+            "\n"
+            "<a href=\"https://melpa.org/#/{{p}}\"><img alt=\"MELPA\" src=\"https://melpa.org/packages/{{p}}-badge.svg\"/></a>")))
+  "Types of output for `insert-melpa-badge'.")
+
+;;;###autoload
+(defun insert-melpa-badge (package type)
+  "Insert melpa badge code, for document TYPE, for PACKAGE."
+  (interactive
+   (list
+    (read-file-name "Package: ")
+    (completing-read "Type: " insert--melpa-badge-types)))
+  (let ((fmt (cdr (assoc (intern type) insert--melpa-badge-types))))
+    (when fmt
+      (insert (replace-regexp-in-string "{{p}}" (file-name-nondirectory (file-name-sans-extension package)) fmt)))))
+
 (provide 'insert)
 
 ;;; insert.el ends here
