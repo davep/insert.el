@@ -125,6 +125,21 @@ intended for use with editing quoted text."
     (when fmt
       (insert (replace-regexp-in-string "{{p}}" (file-name-nondirectory (file-name-sans-extension package)) fmt)))))
 
+;;;###autoload
+(defun insert-autoload-cookie ()
+  "Insert an autoload cookie before the current top level form.
+
+What constitutes the top level form depends on where
+`beginning-of-defun' takes us and its return value.
+
+At some point I should probably extend this so that it goes to
+the start of the form and then checks to see if it's anything
+that can actually be autoloaded."
+  (interactive)
+  (save-excursion
+    (when (beginning-of-defun)
+      (insert ";;;###autoload\n"))))
+
 (provide 'insert)
 
 ;;; insert.el ends here
