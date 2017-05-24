@@ -6,6 +6,10 @@
 ;; Keywords: convenience
 ;; URL: https://github.com/davep/insert.el
 
+;; insert.el is free software distributed under the terms of the GNU General
+;; Public Licence, version 2 or (at your option) any later version. For
+;; details see the file COPYING.
+
 ;;; Commentary:
 ;;
 ;; insert.el contains commands for quickly and easily inserting useful
