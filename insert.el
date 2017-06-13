@@ -22,7 +22,7 @@
 ;;;###autoload
 (defun insert-filename (file)
   "Insert a name of FILE allowing for interactive browsing to the name."
-  (interactive "fFile: ")
+  (interactive "*fFile: ")
   (insert file))
 
 ;;;###autoload
@@ -31,7 +31,7 @@
 
 NAME-ONLY is a prefix argument, nil means insert the full name of the file,
 any other value means insert the name without the directory."
-  (interactive "P")
+  (interactive "*P")
   (let ((filename (buffer-file-name)))
     (if (null filename)
         (error "Buffer has no filename")
@@ -42,7 +42,7 @@ any other value means insert the name without the directory."
 ;;;###autoload
 (defun insert-sexp-link ()
   "Place \"link quotes\" around the `sexp-at-point'."
-  (interactive)
+  (interactive "*")
   (when (sexp-at-point)
     (let ((bounds (bounds-of-thing-at-point 'sexp)))
       (save-excursion
@@ -54,7 +54,7 @@ any other value means insert the name without the directory."
 ;;;###autoload
 (defun insert-snip (start end)
   "Call `kill-region' on region bounding START and END and then insert \"[SNIP]\"."
-  (interactive "r")
+  (interactive "*r")
   (kill-region start end)
   (insert "[SNIP]")
   (forward-char -1))
@@ -62,7 +62,7 @@ any other value means insert the name without the directory."
 ;;;###autoload
 (defun insert-tags (tag start end)
   "Surround region bounded by START and END with xml/sgml/html tag TAG."
-  (interactive "sTag: \nr")
+  (interactive "*sTag: \nr")
   (let ((text (buffer-substring start end)))
     (setf (buffer-substring start end)
           (concat "<" tag ">" text "</" tag ">"))))
@@ -73,7 +73,7 @@ any other value means insert the name without the directory."
 
 Also adds an extra blank line to the split because it's mostly
 intended for use with editing quoted text."
-  (interactive)
+  (interactive "*")
   (let* ((fill-prefix (fill-context-prefix (save-excursion
                                              (backward-paragraph)
                                              (point))
@@ -91,7 +91,7 @@ intended for use with editing quoted text."
 ;;;###autoload
 (defun insert-cut-here (&optional say-cut)
   "Insert \"cut here\" delimeters."
-  (interactive "P")
+  (interactive "*P")
   (let ((cut-line (if say-cut
                       (concat "-- cut here " (make-string 64 ?-))
                     (make-string 76 ?-))))
@@ -101,7 +101,7 @@ intended for use with editing quoted text."
 ;;;###autoload
 (defun insert-file-cut-here (file)
   "Insert a file with a \"cut here\" delimiter."
-  (interactive "fFilename: ")
+  (interactive "*fFilename: ")
   (insert-cut-here t)
   (insert-file-contents-literally file))
 
@@ -139,7 +139,7 @@ What constitutes the top level form depends on where
 At some point I should probably extend this so that it goes to
 the start of the form and then checks to see if it's anything
 that can actually be autoloaded."
-  (interactive)
+  (interactive "*")
   (save-excursion
     (when (beginning-of-defun)
       (insert ";;;###autoload\n"))))
