@@ -61,7 +61,7 @@ any other value means insert the name without the directory."
 
 ;;;###autoload
 (defun insert-tags (tag start end)
-  "Surround region bounded by START and END with xml/sgml/html tag TAG."
+  "Place xml/sglm/html TAG around region bounded by START and END."
   (interactive "*sTag: \nr")
   (let ((text (buffer-substring start end)))
     (setf (buffer-substring start end)
@@ -90,7 +90,10 @@ intended for use with editing quoted text."
 
 ;;;###autoload
 (defun insert-cut-here (&optional say-cut)
-  "Insert \"cut here\" delimeters."
+  "Insert \"cut here\" delimiters.
+
+Just use dashes unless SAY-CUT is non-nil, then include \"cut
+here\" in the cut marks."
   (interactive "*P")
   (let ((cut-line (if say-cut
                       (concat "-- cut here " (make-string 64 ?-))
@@ -100,7 +103,7 @@ intended for use with editing quoted text."
 
 ;;;###autoload
 (defun insert-file-cut-here (file)
-  "Insert a file with a \"cut here\" delimiter."
+  "Insert contents of FILE with a \"cut here\" delimiter."
   (interactive "*fFilename: ")
   (insert-cut-here t)
   (insert-file-contents-literally file))
@@ -120,7 +123,9 @@ intended for use with editing quoted text."
 
 ;;;###autoload
 (defun insert-melpa-badge (package type)
-  "Insert melpa badge code, for document TYPE, for PACKAGE."
+  "Insert melpa badge code for PACKAGE.
+
+TYPE specifies what type of code to insert. Options are \"markdown\" and \"html\"."
   (interactive
    (unless (barf-if-buffer-read-only)
      (list
