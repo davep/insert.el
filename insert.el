@@ -122,9 +122,10 @@ intended for use with editing quoted text."
 (defun insert-melpa-badge (package type)
   "Insert melpa badge code, for document TYPE, for PACKAGE."
   (interactive
-   (list
-    (read-file-name "Package: ")
-    (completing-read "Type: " insert--melpa-badge-types)))
+   (unless (barf-if-buffer-read-only)
+     (list
+      (read-file-name "Package: ")
+      (completing-read "Type: " insert--melpa-badge-types))))
   (let ((fmt (cdr (assoc (intern type) insert--melpa-badge-types))))
     (when fmt
       (insert (replace-regexp-in-string "{{p}}" (file-name-nondirectory (file-name-sans-extension package)) fmt)))))
