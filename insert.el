@@ -41,15 +41,19 @@ any other value means insert the name without the directory."
 
 ;;;###autoload
 (defun insert-sexp-link ()
-  "Place \"link quotes\" around the `sexp-at-point'."
+  "Place \"link quotes\" around the `sexp-at-point'.
+
+As a side-effect `point' is placed after the sexp."
   (interactive "*")
   (when (sexp-at-point)
     (let ((bounds (bounds-of-thing-at-point 'sexp)))
-      (save-excursion
-        (setf (point) (car bounds))
-        (insert "`")
-        (setf (point) (1+ (cdr bounds)))
-        (insert "'")))))
+      (setf (point)
+            (save-excursion
+              (setf (point) (car bounds))
+              (insert "`")
+              (setf (point) (1+ (cdr bounds)))
+              (insert "'")
+              (point))))))
 
 ;;;###autoload
 (defun insert-snip (start end)
