@@ -40,20 +40,22 @@ any other value means insert the name without the directory."
                 filename)))))
 
 ;;;###autoload
-(defun insert-sexp-link ()
+(defun insert-sexp-link (&optional no-move)
   "Place \"link quotes\" around the `sexp-at-point'.
 
-As a side-effect `point' is placed after the sexp."
-  (interactive "*")
+As a side-effect `point' is placed after the sexp unless NO-MOVE
+is t."
+  (interactive "*P")
   (when (sexp-at-point)
-    (let ((bounds (bounds-of-thing-at-point 'sexp)))
-      (setf (point)
-            (save-excursion
-              (setf (point) (car bounds))
-              (insert "`")
-              (setf (point) (1+ (cdr bounds)))
-              (insert "'")
-              (point))))))
+    (let* ((bounds (bounds-of-thing-at-point 'sexp))
+           (move-to (save-excursion
+                      (setf (point) (car bounds))
+                      (insert "`")
+                      (setf (point) (1+ (cdr bounds)))
+                      (insert "'")
+                      (point))))
+      (unless no-move
+        (setf (point) move-to)))))
 
 ;;;###autoload
 (defun insert-snip (start end)
