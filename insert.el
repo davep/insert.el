@@ -156,6 +156,22 @@ that can actually be autoloaded."
     (when (beginning-of-defun)
       (insert ";;;###autoload\n"))))
 
+;;;###autoload
+(defun insert-break-comment ()
+  "Insert a break comment at the current `point'.
+
+If `bolp' is nil at the start of the comment, a new line is
+created first. If `eolp' is nil at the end of the command a new
+line is inserted and `point' is returned to where it was before
+the new line is inserted."
+  (interactive "*")
+  (unless (bolp)
+    (insert "\n"))
+  (insert (make-string fill-column (aref ";" 0)) "\n;; ")
+  (unless (eolp)
+    (save-excursion
+      (insert "\n"))))
+
 (provide 'insert)
 
 ;;; insert.el ends here
