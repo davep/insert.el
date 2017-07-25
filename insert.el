@@ -172,6 +172,23 @@ the new line is inserted."
     (save-excursion
       (insert "\n"))))
 
+;;;###autoload
+(defun insert-youtube-markdown (url)
+  "Insert markdown for embedding video at URL.
+
+Note that it doesn't really embed the video because markdown
+doesn't support that, but it does embed a thumbnail for the video
+and make it a link to the video on YouTube."
+  (interactive "*sURL: ")
+  (let ((id (progn
+              (string-match "^.*?v=\\([^&]+\\)" url)
+              (match-string 1 url))))
+    (save-excursion
+      (insert
+       (format
+        "[![](https://img.youtube.com/vi/%s/0.jpg)](%s)" id url)))
+    (setf (point) (+ (point) 3))))
+
 (provide 'insert)
 
 ;;; insert.el ends here
