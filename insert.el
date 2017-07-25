@@ -183,11 +183,14 @@ and make it a link to the video on YouTube."
   (let ((id (progn
               (string-match "^.*?v=\\([^&]+\\)" url)
               (match-string 1 url))))
-    (save-excursion
-      (insert
-       (format
-        "[![](https://img.youtube.com/vi/%s/0.jpg)](%s)" id url)))
-    (setf (point) (+ (point) 3))))
+    (if id
+        (progn
+          (save-excursion
+            (insert
+             (format
+              "[![](https://img.youtube.com/vi/%s/0.jpg)](%s)" id url)))
+          (setf (point) (+ (point) 3)))
+      (error "Could not parse that URL for a YouTube video ID"))))
 
 (provide 'insert)
 
