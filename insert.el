@@ -208,7 +208,7 @@ and make it a link to the video on YouTube."
   (save-excursion
     (let ((package (file-name-nondirectory (or (buffer-file-name) "{{unknown.el}}"))))
       (setf (point) (point-min))
-      (insert ";;; " package " --- {{Description}}
+      (insert ";;; " package " --- {{Description}} -*- lexical-binding: t -*-
 ;; Copyright 2017 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
