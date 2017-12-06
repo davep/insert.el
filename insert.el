@@ -209,7 +209,7 @@ and make it a link to the video on YouTube."
     (let ((package (file-name-nondirectory (or (buffer-file-name) "{{unknown.el}}"))))
       (setf (point) (point-min))
       (insert ";;; " package " --- {{Description}} -*- lexical-binding: t -*-
-;; Copyright 2017 by Dave Pearson <davep@davep.org>
+;; Copyright " (format-time-string "%Y") " by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
 ;; Version: 0.01
