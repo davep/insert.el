@@ -256,6 +256,28 @@ and make it a link to the video on YouTube."
   (insert-elisp-header)
   (insert-elisp-footer))
 
+;;;###autoload
+(defun insert-default-html5 ()
+  "Insert a minimal boilerplate HTML5 page."
+  (interactive "*")
+  (save-excursion
+    (insert "<!doctype html>
+<html lang=\"en\">
+  <head>
+    <title></title>
+    <meta charset=\"utf-8\">
+    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <link rel=\"shortcut icon\" href=\"/favicon.ico\" />
+    <link rel=\"apple-touch-icon\" href=\"/icon.png\" />
+  </head>
+
+  <body>
+  </body>
+
+</html>
+")))
+
 (provide 'insert)
 
 ;;; insert.el ends here
