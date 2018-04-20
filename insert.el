@@ -215,6 +215,7 @@ and make it a link to the video on YouTube."
 ;; Version: 0.01
 ;; Keywords: {{keywords}}
 ;; URL: https://github.com/davep/" package "
+;; Package-Requires: ((emacs \"24\"))
 
 ;; This program is free software: you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the
