@@ -2,7 +2,7 @@
 ;; Copyright 2017-2018 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
-;; Version: 1.15
+;; Version: 1.16
 ;; Keywords: convenience
 ;; URL: https://github.com/davep/insert.el
 
