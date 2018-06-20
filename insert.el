@@ -251,6 +251,7 @@ and make it a link to the video on YouTube."
 ;;; " package " ends here
 "))))
 
+;;;###autoload
 (defun insert-default-elisp ()
   "Insert a standard elisp header and footer."
   (interactive "*")
