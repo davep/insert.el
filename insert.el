@@ -202,63 +202,6 @@ and make it a link to the video on YouTube."
       (error "Could not parse that URL for a YouTube video ID"))))
 
 ;;;###autoload
-(defun insert-elisp-header ()
-  "Insert my standard elisp header."
-  (interactive "*")
-  (save-excursion
-    (let ((package (file-name-nondirectory (or (buffer-file-name) "{{unknown.el}}"))))
-      (setf (point) (point-min))
-      (insert ";;; " package " --- {{Description}} -*- lexical-binding: t -*-
-;; Copyright " (format-time-string "%Y") " by Dave Pearson <davep@davep.org>
-
-;; Author: Dave Pearson <davep@davep.org>
-;; Version: 0.01
-;; Keywords: {{keywords}}
-;; URL: https://github.com/davep/" package "
-;; Package-Requires: ((emacs \"24\"))
-
-;; This program is free software: you can redistribute it and/or modify it
-;; under the terms of the GNU General Public License as published by the
-;; Free Software Foundation, either version 3 of the License, or (at your
-;; option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful, but
-;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
-;; Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License along
-;; with this program. If not, see <http://www.gnu.org/licenses/>.
-
-;;; Commentary:
-;;
-;; " package " {{blah blah blah}}
-
-;;; Code:
-"))))
-
-;;;###autoload
-(defun insert-elisp-footer ()
-  "Insert a standard elisp package footer."
-  (interactive "*")
-  (save-excursion
-    (let ((package (file-name-nondirectory (or (buffer-file-name) "{{unknown.el}}")))
-          (feature (file-name-sans-extension (file-name-nondirectory (or (buffer-file-name) "unknown.el")))))
-      (setf (point) (point-max))
-      (insert "
-(provide '" feature ")
-
-;;; " package " ends here
-"))))
-
-;;;###autoload
-(defun insert-default-elisp ()
-  "Insert a standard elisp header and footer."
-  (interactive "*")
-  (insert-elisp-header)
-  (insert-elisp-footer))
-
-;;;###autoload
 (defun insert-default-html5 ()
   "Insert a minimal boilerplate HTML5 page."
   (interactive "*")
